@@ -1,0 +1,177 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.login-container {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+    width: 100%;
+    max-width: 400px;
+}
+
+.login-form h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.input-group {
+    margin-bottom: 20px;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    outline: none;
+}
+
+.input-group input:focus {
+    border-color: #2575fc;
+    box-shadow: 0 0 5px rgba(37, 117, 252, 0.3);
+}
+
+.button-group {
+    text-align: center;
+}
+
+.login-btn {
+    width: 100%;
+    padding: 12px;
+    background-color: #2575fc;
+    border: none;
+    color: white;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.login-btn:hover {
+    background-color: #6a11cb;
+}
+
+body {
+    font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+    background-image: url('images/vecteezy_abstract-colorful-line-wave-on-black-background-use-for_3705356.jpg'); /* Your image */
+    background-size: cover; /* Ensure it covers the screen */
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Prevent tiling */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 30px;
+    text-align: center;
+    color: #333;
+    position: relative; /* Ensure positioning context for the button container */
+}
+
+
+
+
+/* Main container that holds everything */
+.container {
+    width: 60%;  /* Smaller width */
+    max-width: 800px;  /* Smaller max-width */
+    height: fit-content;
+    background-color: white;
+    padding: 20px;  /* Smaller padding */
+    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.1);
+    border-radius: 20px;
+    text-align: center;
+    position: relative;
+}
+
+
+
+/* Large, bold title */
+.heading-container {
+    display: flex;
+    justify-content: flex-start; /* Align buttons to the left */
+    gap: 15px; /* Space between buttons */
+    position: fixed; /* Keeps the buttons in the same place even when scrolling */
+    top: 50px; /* Distance from the top */
+    left: 30px; /* Distance from the left edge (move to the left) */
+    z-index: 1000; /* Ensure the buttons appear above other content */
+}
+
+.heading-container h1 {
+    font-size: 5rem; /* Adjust this value to increase text size */
+}
+
+
+
+
+/* Styling for the buttons (positioned side by side) */
+.button-container {
+    display: flex;
+    justify-content: flex-end; /* Align buttons to the far right */
+    gap: 15px; /* Space between buttons */
+    position: fixed; /* Keeps the buttons in the same place even when scrolling */
+    top: 20px; /* Distance from the top */
+    right: 20px; /* Distance from the right edge */
+    z-index: 1000; /* Ensure the buttons appear above other content */
+}
+
+
+/* Styling for each button */
+.container a {
+    text-decoration: none;
+    color: #0071e3; /* Apple blue */
+    background-color: transparent;
+    padding: 8px 20px;
+    border: 2px solid #0071e3; /* Subtle border like Apple's button style */
+    border-radius: 30px; /* Rounded corners like Apple buttons */
+    font-size: 1rem;
+    font-weight: 600;
+    transition: transform 0.2s ease, background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Hover effect on buttons */
+.container a:hover {
+    background-color: #0071e3; /* Blue background on hover */
+    color: white; /* White text on hover */
+    transform: translateY(-5px); /* Lift effect */
+}
+
+/* Active button state for pressing */
+.container a:active {
+    transform: translateY(3px); /* Pressed effect */
+}
+
+/* Styling for the video feed container */
+.video-feed-container {
+    margin-top: 30px;
+    position: relative;
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto; /* Centering the video feed */
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+/* Image styling (video feed) */
+img {
+    width: 100%;
+    height: auto;
+    border-radius: 15px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+}
+
+/* Responsive design for mobile */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2.5rem;
+    }
+    .container a {
+        font-size: 0.9rem;
+        padding: 8px 20px;
+    }
+}

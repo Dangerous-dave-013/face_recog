@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Dashboard - Face Registration</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+
+        <h2>Log Entries:</h2>
+        <ul>
+            {% for log in logs %}
+                <li><strong>{{ log.name }}</strong> - {{ log.timestamp }}</li>
+            {% else %}
+                <li>No logs available.</li>
+            {% endfor %}
+        </ul>
+
+        <a href="/logout">Logout</a>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/admin.js') }}"></script>
+</body>
+</html>

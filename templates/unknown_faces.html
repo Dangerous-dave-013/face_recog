@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Unknown Faces Log</title>
+    <style>
+        body {
+            background-color: #1e1e1e;
+            color: #fefefe;
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        .face-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .face {
+            margin: 10px;
+            border: 2px solid #ff4d4d;
+            padding: 5px;
+            background-color: #2a2a2a;
+        }
+        img {
+            max-width: 200px;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>Unknown Faces Log</h1>
+    <div class="face-container">
+        {% for img in images %}
+            <div class="face">
+                <p>{{ img.time }}</p>
+                <img src="{{ url_for('static', filename='unknown_faces/' + img.file) }}">
+            </div>
+        {% endfor %}
+    </div>
+</body>
+</html>

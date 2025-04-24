@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Face Recognition </title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <script defer src="https://cdn.jsdelivr.net/npm/face-api.js"></script>
+</head>
+<body>
+    <div class="heading-container">
+        <h1>Smile!</h1>
+    </div>
+
+    <div class="container">
+        <div class="button-container">
+            <a href="{{ url_for('admin') }}" class="button">Admin Login</a>
+            <a href="{{ url_for('logs_page') }}" class="button">View Logs</a>
+        </div>
+
+        <div class="video-feed-container">
+            <img src="{{ url_for('video_feed') }}" alt="Video Feed">
+        </div>
+    </div>
+
+    <div id="user-info-container">
+        <h3 id = verification-status><span>Verifications status: </span> <span id="user-name">--</span></h3>
+        <img id="user-profile-img" class="profile-img" src="" alt="User Image">
+        <div class="user-info-text">
+            <div class="user-detail"><span>Name:</span> <span id="user-name">--</span></div>
+            <div class="user-detail"><span>Age:</span> <span id="user-age">--</span></div>
+            <div class="user-detail"><span>Phone:</span> <span id="user-phone">--</span></div>
+        </div>
+    </div>
+
+    <style>
+        #user-info-container {
+            position: fixed;
+            top: 50%;
+            right: 20px;
+            transform: translateY(-50%);
+            width: 300px;
+            padding: 15px 20px;
+            color: lightgreen;
+            border-radius: 12px;
+            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.5);
+            font-family: 'Segoe UI', sans-serif;
+            font-size: 15px;
+            color: #333;
+            z-index: 999;
+        }
+
+        #user-info-container h3 {
+            margin-top: 0;
+            font-size: 16px;
+            color: #1a1a1a;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 5px;
+            margin-bottom: 10px;
+        }
+
+        .user-detail {
+            margin-bottom: 6px;
+        }
+
+        .user-detail span {
+            font-weight: 600;
+            color: #555;
+        }
+
+        /* Profile picture style */
+        #user-info-container .profile-img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 10px;
+            float: left;
+            margin-bottom: 10px;
+        }
+
+        /* To ensure the text doesn't get jumbled */
+        #user-info-container .user-info-text {
+            display: inline-block;
+            vertical-align: top;
+            margin-top: 5px;
+        }
+    </style>
+
+    <script>
+        function updateUserInfo(data) {
+            const name = data.name || "--";
+            const age = data.age || "--";
+            const phone = data.phone_number || "--";
+    
+            // Update user details
+            document.getElementById("user-name").textContent = name;
+            document.getElementById("user-age").textContent = age;
+            document.getElementById("user-phone").textContent = phone;
+
+            // Check if user data is valid
+            const statusElement = document.getElementById("verification-status");
+            if (data.name && data.age && data.phone_number) {
+                statusElement.textContent = "Verification status: Identification verified";
+        
+            // Show profile image
+            const imagePath = "faces/" + data.name + "/1.jpg";
+            document.getElementById("user-profile-img").src = imagePath;
+            } else {
+                statusElement.textContent = "Verification status: Identity not found";
+
+            // Clear profile image
+                document.getElementById("user-profile-img").src = "";
+            }
+        }
+
+
+        setInterval(() => {
+            fetch('/get_detected_user_info')
+                .then(res => res.ok ? res.json() : null)
+                .then(data => {
+                    if (data) {
+                        updateUserInfo(data);
+                    } else {
+                        console.log("No data received.");
+                    }
+                })
+                .catch(err => console.error("Error fetching user info", err));
+        }, 2000);
+    </script>
+</body>
+</html>

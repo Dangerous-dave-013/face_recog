@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Dashboard - Face Registration</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background: #f5f5f7;
+            color: #1d1d1f;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 60px 20px;
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 40px;
+        }
+
+        form {
+            background: #fff;
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            max-width: 500px;
+            width: 100%;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            margin-top: 20px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            border-radius: 10px;
+            border: 1px solid #ccc;
+            margin-bottom: 20px;
+            font-size: 1rem;
+        }
+
+        video {
+            width: 100%;
+            max-width: 100%;
+            border-radius: 12px;
+            border: 2px solid #e0e0e0;
+            margin-bottom: 20px;
+        }
+
+        button {
+            background-color: #0071e3;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-size: 1rem;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .button-group {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        button:hover {
+            background-color: #005bb5;
+        }
+
+        #canvas {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>Admin Dashboard</h1>
+
+    <form id="registerForm" method="POST" action="/register_face">
+        <label for="name">Name:</label>
+        <input type="text" name="name" required>
+
+        <label for="age">Age:</label>
+        <input type="text" name="age" required>
+
+        <label for="phone">Phone:</label>
+        <input type="text" name="phone_number" required>
+
+        <label for="verification_id">Verification ID:</label>
+        <input type="text" name="verification_id" id="verification_id" readonly required>
+
+        <video id="webcam" width="320" height="240" autoplay playsinline></video>
+        <canvas id="canvas"></canvas>
+        <input type="hidden" name="image_data" id="image_data">
+
+        <div class="button-group">
+            <button type="button" onclick="generateID()">Generate ID</button>
+            <button type="button" onclick="captureImage()">Capture Image</button>
+            <button type="submit">Register Face</button>
+        </div>
+    </form>
+
+   <!-- First button -->
+<div style="position: absolute; top: 20px; right: 20px; z-index: 1000;">
+    <a href="{{ url_for('view_members') }}" 
+       style="
+            text-decoration: none; 
+            background-color: #ff3b30; 
+            color: white; 
+            padding: 4px 10px; 
+            border-radius: 4px; 
+            font-size: 13px; 
+            font-weight: 500;
+            font-family: 'Segoe UI', sans-serif;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+       ">
+       View Registered Members
+    </a>
+</div>
+
+<!-- Second button (just move it down by 40px) -->
+<div style="position: absolute; top: 70px; right: 20px; z-index: 1000;">
+    <a href="{{ url_for('unknown_faces') }}"
+       style="
+            text-decoration: none; 
+            background-color: #ff3b30; 
+            color: white; 
+            padding: 4px 10px; 
+            border-radius: 4px; 
+            font-size: 13px; 
+            font-weight: 500;
+            font-family: 'Segoe UI', sans-serif;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+       ">
+       View Unknown Entries Log
+    </a>
+</div>
+
+
+    <script>
+        function captureImage() {
+            const video = document.getElementById('webcam');
+            const canvas = document.getElementById('canvas');
+            const context = canvas.getContext('2d');
+
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            context.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+            const dataURL = canvas.toDataURL('image/jpeg');
+            document.getElementById('image_data').value = dataURL;
+        }
+
+        function generateID() {
+            const id = 'VER-' + Math.random().toString(36).substr(2, 9).toUpperCase();
+            document.getElementById('verification_id').value = id;
+        }
+
+        navigator.mediaDevices.getUserMedia({ video: true })
+            .then(stream => {
+                document.getElementById('webcam').srcObject = stream;
+            })
+            .catch(err => {
+                console.error("Webcam error:", err);
+            });
+    </script>
+</body>
+</html>

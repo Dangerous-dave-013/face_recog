@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <script src="{{ url_for('static', filename='js/admin.js') }}" defer></script>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-form">
+            <h2>Admin Login</h2>
+            <form method="POST" action="/admin">
+                <div class="input-group">
+                    <input type="password" name="password" placeholder="Enter Admin Password" required>
+                </div>
+                <div class="button-group">
+                    <button type="submit" class="login-btn">Login</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
